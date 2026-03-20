@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Cálculos - Mi Sitio Web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000000; 
+            color: white;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        nav {
+            background-color: #ff94e0;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover { color: #000000; }
+
+        .container {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid #ff94e0;
+            margin-top: 20px;
+            width: 320px;
+            text-align: center;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ff94e0;
+            background: #222;
+            color: white;
+        }
+
+        button {
+            background-color: #ff94e0;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+            transition: 0.3s;
+        }
+
+        button:hover { background-color: white; }
+
+        .resultado {
+            font-size: 1.2em;
+            color: #ff94e0;
+            margin-top: 15px;
+            font-weight: bold;
+            min-height: 1.5em;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="nosotros.html">Nosotros</a>
+        <a href="Servicios.html">Servicios</a>
+        <a href="Contacto.html">Contacto</a>
+        <a href="galeria.html">Galeria</a>
+        <a href="cálculos.html">Cálculos</a>
+    </nav>
+
+    <h1>Herramientas de Cálculo</h1>
+
+    <div class="container">
+        <h3>Calculadora Básica</h3>
+        <input type="number" id="n1" placeholder="Número 1">
+        <input type="number" id="n2" placeholder="Número 2">
+        <br>
+        <button onclick="calcular('+')">+</button>
+        <button onclick="calcular('-')">-</button>
+        <button onclick="calcular('*')">x</button>
+        <button onclick="calcular('/')">/</button>
+        <div class="resultado" id="resCalc">Resultado: -</div>
+    </div>
+
+    <div class="container">
+        <h3>Conversor de Temperatura</h3>
+        <input type="number" id="tempInput" placeholder="Ingresa valor">
+        <br>
+        <button onclick="convertir('CtoF')">°C a °F</button>
+        <button onclick="convertir('FtoC')">°F a °C</button>
+        <div class="resultado" id="resTemp">Resultado: -</div>
+    </div>
+
+    <script>
+        // Función para operaciones matemáticas
+        function calcular(operacion) {
+            const n1 = parseFloat(document.getElementById('n1').value);
+            const n2 = parseFloat(document.getElementById('n2').value);
+            let r = 0;
+
+            if (isNaN(n1) || isNaN(n2)) {
+                alert("Por favor, ingresa números válidos en ambos campos.");
+                return;
+            }
+
+            switch(operacion) {
+                case '+': r = n1 + n2; break;
+                case '-': r = n1 - n2; break;
+                case '*': r = n1 * n2; break;
+                case '/': 
+                    r = (n2 !== 0) ? (n1 / n2).toFixed(2) : "Error: Div entre 0"; 
+                    break;
+            }
+
+            document.getElementById('resCalc').innerText = "Resultado: " + r;
+        }
+
+        // Función para temperatura
+        function convertir(tipo) {
+            const valor = parseFloat(document.getElementById('tempInput').value);
+            let resultado = 0;
+
+            if (isNaN(valor)) {
+                alert("Ingresa un número para convertir.");
+                return;
+            }
+
+            if (tipo === 'CtoF') {
+                resultado = (valor * 9/5) + 32;
+                document.getElementById('resTemp').innerText = valor + "°C = " + resultado.toFixed(2) + "°F";
+            } else {
+                resultado = (valor - 32) * 5/9;
+                document.getElementById('resTemp').innerText = valor + "°F = " + resultado.toFixed(2) + "°C";
+            }
+        }
+    </script>
+
+</body>
+</html>
